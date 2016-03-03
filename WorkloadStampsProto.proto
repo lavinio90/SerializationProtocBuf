@@ -1,0 +1,341 @@
+syntax ="proto3";
+message WorkloadTimeStampsProto{
+	repeated int64 _timestamps = 1;
+	string _symmetrixId=2;
+	repeated KPICategoryKPIComponentPair _data=3;
+	//_dateTimes is not necessary, we can always get it from _timestamps.
+}
+message KPIComponent{
+	KPICategory category=1;
+	map<string,KPIInstance> instances=2;
+	repeated KPIMetric metrics=3;
+
+}
+
+message KPIInstance{
+	repeated KPIMetricDoubleArrayPair values=1;
+	string name=2;
+	KPICategory category=3;
+}
+
+message KPIMetricDoubleArrayPair{
+	KPIMetric key=1;
+	DoubleArray value=2;
+}
+
+message KPICategoryKPIComponentPair{
+	KPICategory key=1;
+	KPIComponent value=2;
+}
+
+message DoubleArray{
+	repeated double array=1;
+}
+
+enum KPICategory    {
+        ARRAY=0;
+        DEVICE=1;
+        FE_DIR=2;
+        BE_DIR=3;
+        RDF_DIR=4;
+        DISK=5;
+        FE_PORT=6;
+        CP=7;
+        RDFA_GRP=8;
+        RDF_LINK=9;
+        EVENT=10;		/*KGKG: DO NOT REMOVE */
+        //TAIL;
+        DEV_POOL=11;		/* Fast Stats (Device TP Pool) */
+        THIN_POOL=12;     /* Thin Pool Stats */
+        RDF_DEV=13;
+        DEV_CACH=14;      /* Device Host Cache Stats */
+        EXT_DISK=15;
+        //CONTAINER;
+        BOARD=16; //INTERCONNECT;
+        DEV_FRONT_END=17;
+        DEV_BACK_END=18;
+
+        DEVICE_LOCALITY=19;
+        RDF_SYSTEM=20;
+        RDF_NW_COMPRESSION=21;
+        SPDLMT_GROUP=22;
+        TCP_CONNECTION=23;
+        DIR_NETWORK=24;
+        NW_INTERFACE=25;
+        ORS_PORT=26;
+        ORS_DEVICE=27;
+        FE_DIR_PORT=28;
+        RDF_DIR_PORT=29;
+
+        BE_DIR_PORT=30;
+        EDS_DIR=31;
+        CONTAINER_PORT=32;
+
+        GOS=33;
+        IM_DIR=34;
+        IM_SLIC=35;
+
+        CORE=36;
+        CORE_EDS=37;
+        CORE_IM=38;
+        CORE_FE=39;
+        CORE_BE=40;
+        CORE_RDF=41;
+        CORE_FICON=42;
+
+        ISCSI_CLIENT=43;
+        ISCSI_TARGET=44;
+
+        DISK_GROUP=45;
+        DEV_POOL_ALLOCATIONS=46;
+
+        INITIATOR=47;
+
+        HEADER=48;
+}
+
+ enum KPIMetric
+    {
+        im_dir_memory_page_fall_through_time_total=0 ;
+        im_dir_memory_page_usage_total=1 ;
+        eds_dir_random_read_misses=2 ;
+        eds_dir_random_read_misses_kbytes=3 ;
+        eds_dir_random_write_misses=4 ;
+        eds_dir_random_write_misses_kbytes=5 ;
+        rdfdir_numKbytesRecvd=6 ;
+        rdfdir_numKbytesSent=7 ;
+        rdfdir_total_copy_io_count=8 ;
+        rdfdir_total_copy_io_kbytes=9 ;
+        rdfdir_total_srdfs_write_count=10;
+        core_time_stamp=11;
+        core_symmk_idle_time=12;
+        core_im_time_stamp=13;
+        core_im_page_in_time=14;
+        core_im_page_out_time=15;
+        core_im_environmental_time=16;
+        core_im_other_time=17;
+        core_im_symmk_total_time=18;
+        core_eds_time_stamp=19;
+        core_eds_emulation_time=20;
+        core_eds_io_machine_time=21;
+        core_eds_lp_io_machine_time=22;
+        core_eds_housekeeping_time=23;
+        core_eds_lrep_control_time=24;
+        core_eds_vp_time=25;
+        core_eds_copy_scanner_time=26;
+        core_eds_pyramid_time=27;
+        core_eds_scan_time=28;
+        core_eds_snow_spillover_time=29;
+        core_eds_remote_replication_time=30;
+        core_eds_syscalls_time=31;
+        core_eds_watchdog_time=32;
+        core_eds_allocation_split_time=33;
+        core_eds_fsm_time=34;
+        core_eds_symmk_total_time=35;
+        core_fe_time_stamp=36;
+        core_fe_total_reads_time=37;
+        core_fe_total_writes_time=38;
+        core_fe_syscalls_time=39;
+        core_fe_managment_time=40;
+        core_fe_link_port_time=41;
+        core_fe_xrc_replication_time=42;
+        core_fe_zhpf_reads_time=43;
+        core_fe_zhpf_writes_time=44;
+        core_fe_odx_vaai_xcopy_time=45;
+        core_fe_odx_vaai_write_same_time=46;
+        core_fe_odx_vaai_lock_time=47;
+        core_fe_cdi_time=48;
+        core_fe_lp_task_time=49;
+        core_fe_symmk_total_time=50;
+        core_be_time_stamp=51;
+        core_be_total_read_misses_time=52;
+        core_be_total_writes_time=53;
+        core_be_total_prefetch_time=54;
+        core_be_total_copy_reads_time=55;
+        core_be_total_copy_writes_time=56;
+        core_be_syscalls_time=57;
+        core_be_managment_time=58;
+        core_be_rebuild_time=59;
+        core_be_ivtoc_time=60;
+        core_be_software_compression_time=61;
+        core_be_other_time=62;
+        core_be_cdi_time=63;
+        core_be_lp_task_time=64;
+        core_be_symmk_total_time=65;
+        core_rdf_time_stamp=66;
+        core_rdf_total_reads_time=67;
+        core_rdf_total_writes_time=68;
+        core_rdf_total_copy_reads_time=69;
+        core_rdf_total_copy_writes_time=70;
+        core_rdf_syscalls_time=71;
+        core_rdf_other_time=72;
+        core_rdf_lp_task_time=73;
+        core_rdf_link_management_time=74;
+        core_rdf_software_compression_time=75;
+        core_rdf_symmk_total_time=76;
+        core_ficon_time_stamp=77;
+        core_ficon_random_read_hits_time=78;
+        core_ficon_random_write_hits_time=79;
+        core_ficon_random_write_misses_time=80;
+        core_ficon_random_read_misses_time=81;
+        core_ficon_total_sequential_reads_time=82;
+        core_ficon_total_sequential_writes_time=83;
+        core_ficon_syscalls_time=84;
+        core_ficon_managment_time=85;
+        core_ficon_link_port_time=86;
+        core_ficon_xrc_replication_time=87;
+        core_ficon_zhpf_reads_time=88;
+        core_ficon_zhpf_writes_time=89;
+        core_ficon_cdi_time=90;
+        core_ficon_lp_task_time=91;
+        core_ficon_symmk_total_time=92;
+        gos_memory_size=93;
+        gos_num_cpus=94;
+        rdfagrp_sysWritePendingCount=95;
+        rdfagrp_dseTracksUsed=96;
+        rdfagrp_hostWriteNumIoReq=97;
+        rdfagrp_hostWriteNumMbytes=98;
+        bedir_numIoReq=99;
+        bedir_dirUtilization=100;
+        bedir_compress_reads=101;
+        bedir_compress_read_kbytes=102;
+        bedir_compress_writes=103;
+        bedir_compress_write_kbytes=104;
+        fe_dir_port_port_derived_ios_count=105;
+        fe_dir_port_port_derived_total_thruput_kbytes=106;
+        fe_dir_port_port_read_count=107;
+        fe_dir_port_port_write_count=108;
+        fe_dir_port_port_read_thruput_kbytes=109;
+        fe_dir_port_port_write_thruput_kbytes=110;
+        fe_dir_port_port_speed=111;
+        fe_dir_port_negotiated_speed=112;
+        fedir_accumQueueDepthRange0=113;
+        fedir_accumQueueDepthRange5=114;
+        fedir_accumQueueDepthRange10=115;
+        fedir_accumQueueDepthRange20=116;
+        fedir_accumQueueDepthRange40=117;
+        fedir_accumQueueDepthRange80=118;
+        fedir_accumQueueDepthRange160=119;
+        fedir_accumQueueDepthRange320=120;
+        fedir_accumQueueDepthRange640=121;
+        fedir_accumQueueDepthRangeOver640=122;
+        fedir_queueDepthCountRange0=123;
+        fedir_queueDepthCountRange5=124;
+        fedir_queueDepthCountRange10=125;
+        fedir_queueDepthCountRange20=126;
+        fedir_queueDepthCountRange40=127;
+        fedir_queueDepthCountRange80=128;
+        fedir_queueDepthCountRange160=129;
+        fedir_queueDepthCountRange320=130;
+        fedir_queueDepthCountRange640=131;
+        fedir_queueDepthCountRangeOver640=132;
+        fedir_read_resp_time_count0=133;
+        fedir_read_resp_time_count1=134;
+        fedir_read_resp_time_count2=135;
+        fedir_read_resp_time_count3=136;
+        fedir_read_resp_time_count4=137;
+        fedir_read_resp_time_count5=138;
+        fedir_read_resp_time_count6=139;
+        fedir_read_resp_time_count7=140;
+        fedir_write_resp_time_count0=141;
+        fedir_write_resp_time_count1=142;
+        fedir_write_resp_time_count2=143;
+        fedir_write_resp_time_count3=144;
+        fedir_write_resp_time_count4=145;
+        fedir_write_resp_time_count5=146;
+        fedir_write_resp_time_count6=147;
+        fedir_write_resp_time_count7=148;
+        fedir_numIoReq=149;
+        fedir_derived_avg_queue_depth_range=150;
+        fedir_queueDepthCountRange=151;
+        fedir_read_resp_time_count=152;
+        fedir_write_resp_time_count=153;
+        fedir_derived_avg_read_time_ms=154;
+        fedir_derived_avg_write_time_ms=155;
+        fedir_dirUtilization=156;
+        fedir_total_syscall_time=157;
+        fedir_derived_avg_queue_depth_range0=158;
+        fedir_derived_avg_queue_depth_range5=159;
+        fedir_derived_avg_queue_depth_range10=160;
+        fedir_derived_avg_queue_depth_range20=161;
+        fedir_derived_avg_queue_depth_range40=162;
+        fedir_derived_avg_queue_depth_range80=163;
+        fedir_derived_avg_queue_depth_range160=164;
+        fedir_derived_avg_queue_depth_range320=165;
+        fedir_derived_avg_queue_depth_range640=166;
+        fedir_derived_avg_queue_depth_rangeOver640=167;
+        array_cacheTrackSize=168;
+        array_numKbytesRead=169;
+        array_numKbytesWritten=170;
+        array_numWritePendingTracks=171;
+        array_numHits=172;
+        array_numReadHits=173;
+        array_numReadReq=174;
+        array_numWriteReq=175;
+        array_sysMaxWpLimit=176;
+        array_numIoReq=177;
+        disk_totalScsiCommands=178;
+        disk_readCommands=179;
+        disk_writeCommands=180;
+        disk_numSkipMaskCommands=181;
+        disk_numXorWriteCommands=182;
+        disk_derived_xor_write_read_commands_per_sec=183;
+        disk_numXorReadCommands=184;
+        disk_numKbytesWritten=185;
+        disk_derived_avg_kbytes_per_write=186;
+        disk_numKbytesRead=187;
+        disk_derived_avg_kbytes_per_read=188;
+        disk_derived_avg_read_time_ms=189;
+        disk_derived_avg_write_time_ms=190;
+        disk_totalReadTime=191;
+        disk_totalWriteTime=192;
+        dev_front_end_derived_total_ios_per_sec=193;
+        dev_front_end_derived_total_reads_per_sec=194;
+        dev_front_end_num_seq_read_reqs=195;
+        dev_front_end_num_seq_write_reqs=196;
+        dev_front_end_derived_kbytes_read_per_sec=197;
+        dev_front_end_derived_kbytes_written_per_sec=198;
+        dev_front_end_derived_avg_read_size_in_kbytes=199;
+        dev_front_end_derived_avg_write_size_in_kbytes=200;
+        dev_front_end_num_wp_tracks=201;
+        dev_front_end_device_max_wp_limit=202;
+        dev_front_end_derived_sampled_avg_read_time=203;
+        dev_front_end_derived_sampled_avg_write_time=204;
+        dev_front_end_crm_reads=205;
+        dev_front_end_crm_reads_kbytes=206;
+        dev_front_end_num_random_read_reqs=207;
+        dev_front_end_num_random_write_reqs=208;
+        dev_front_end_num_random_read_hits=209;
+        dev_front_end_num_random_write_hits=210;
+        dev_front_end_derived_total_write_misses_per_sec=211;
+        dev_front_end_kbytes_read=212;
+        dev_front_end_kbytes_written=213;
+        dev_front_end_device_block_size=214;
+        dev_front_end_total_read_time=215;
+        dev_front_end_total_write_time=216;
+        dev_back_end_num_wp_tracks=217;
+        dev_back_end_num_write_reqs=218;
+        dev_back_end_num_pf_tracks=219;
+        dev_back_end_num_read_reqs=220;
+        dev_back_end_derived_da_kbytes_read_per_sec=221;
+        dev_back_end_derived_da_kbytes_written_per_sec=222;
+        dev_back_end_num_blocks_written=223;
+        dev_back_end_num_blocks_read=224;
+        dev_back_end_device_block_size=225;
+        rdfdevice_total_reads=226;
+        rdfdevice_total_writes=227;
+        rdfdevice_bytes_read_kb=228;
+        rdfdevice_bytes_written_kb=229;
+        devicepool_allocatedTracksPerPool=230;
+        devicepool_destageWrite=231;
+        devicepool_destageWriteKb=232;
+        devicepool_prefetchKb=233;
+        devicepool_prefetch=234;
+        devicepool_randomReadMissKb=235;
+        devicepool_randomReadMiss=236;
+        devicepool_compressedTracksPerPool=237;
+        thinpool_total_enabled_tracks_64=238;
+        thinpool_fast_egress_counter=239;
+        thinpool_total_free_tracks_64=240;
+        thinpool_total_used_tracks_64=241;    
+    }

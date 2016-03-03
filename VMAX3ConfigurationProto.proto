@@ -1,0 +1,128 @@
+syntax = "proto3";
+message VMAX3ConfigurationProto{
+	string _model=1;
+	string _sn=2;
+	int32 _engine_count=3;
+	int32 _ucode_major=4;
+	int32 _ucode_minor = 5;
+	repeated BoardData _boards =6;
+	repeated FeChannelData _feChans =7;
+	repeated BeChannelData _beChans =8;
+	repeated RdfChannelData _rdfChans =9;
+	repeated DiskData _disks =10;
+	repeated RdfGroupData _rdfGroups =11;
+	repeated SLOData _slos =12;
+	repeated VMAX3DataPoolData _datapools=13;
+	repeated ThinDeviceData _thinDevs=14;
+	map<string, string> _chanBoardMp = 15;
+	repeated DataDeviceData _tdats=16;
+	repeated EDiskData _edisks=17;
+	repeated SRPData _srps=18;
+	repeated StorageGroupData _sgroups=19;
+	repeated DiskGroupData _diskGroups=20;
+	map<string,StringList> _devFeMap=21;
+	map<string,StringList> _diskBeMap=22;
+	map<string,StringList> _ediskFeMap=23;
+	map<string,StringList> _sgDevMap=24;
+	map<string,StringList> _rdfgroupChanMap=25;
+	map<string,StringList> _rdfgroupDevMap=26;
+	map<string,StringList> _sgroupSloMap=27;
+
+
+}
+
+message BeChannelData{
+	string _name =1;
+	string _chan_type =2;
+	double _compression =3;
+	double _speed_limit =4;
+	int32 index =5;
+}
+
+message FeChannelData{
+	string _name =1;
+	string _chan_type =2;
+	double _compression =3;
+	double _speed_limit =4;
+	int32 index =5;
+}
+
+message RdfChannelData{
+	string _name =1;
+	string _chan_type =2;
+	double _compression =3;
+	double _speed_limit =4;
+	int32 index =5;
+}
+
+message DiskData{
+	string _name =1;
+	string _model=2;
+	string _diskgroup=3;
+	string _spindle=4;
+	bool _isSpare=5;
+}
+
+message BoardData{
+	string _name =1;
+}
+
+message VMAX3DataPoolData{
+	string _name =1;
+	repeated string _tdats=2;
+	string _diskgroup_name=3;
+	string _prot=4;
+	string _srp=5;
+	repeated string _thins=6;
+}
+
+message RdfGroupData{
+	string _name =1;
+}
+
+message SLOData{
+	string _name =1;
+	int32 _high=2;
+	int32 _low=3;
+	int32 _rank=4;
+}
+
+message ThinDeviceData{
+	string _name =1;
+	int32 _size_in_cyl=2;
+	bool isMainFrame=3;
+	
+}
+
+message DataDeviceData{
+	string _name =1;
+	double SizeInGigaBytes=2;
+	string LocalProtection=3;
+}
+
+message EDiskData{
+	string _name =1;
+	string _model=2;
+	string _diskgroup=3;
+	string _spindle=4;
+	bool _isSpare=5;
+}
+
+message SRPData{
+	string _name =1;
+}
+
+message StorageGroupData{
+	string _name =1;
+}
+
+message DiskGroupData{
+	string _name =1;
+	string model=2;
+	double _size_in_gb=3;
+}
+
+message StringList{
+	repeated string list=1;
+}
+
